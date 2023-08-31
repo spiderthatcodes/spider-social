@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Spider Social - Account
+{% endblock title %}
+{% block greeting %}
+{% if user.is_authenticated %}
+<h2>Welcome, {{ user.first_name }}</h2>
+{% endif %}
+{% endblock greeting %}
+
+{% block content %}
+<div>
+
+    <h1>Page under construction</h1>
+    <!-- <img src="{{ user.details.avatar }}" alt=""> -->
+
+</div>
+{% endblock content %}
