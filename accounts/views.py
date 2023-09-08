@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from .models import Detail
 from .forms import LoginForm, PasswordUpdateForm, SignUpForm, UserEditForm, DetailForm
 
 
@@ -11,7 +10,7 @@ def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         details = DetailForm(request.POST)
-        if form.is_valid():
+        if form.is_valid() and details.is_valid():
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
             password_confirmation = form.cleaned_data['password_confirmation']
@@ -25,11 +24,8 @@ def signup(request):
                     first_name=first_name,
                     last_name=last_name
                 )
-
-                if details.is_valid():
-                    deets = details.save(False)
-                    deets.spider == user
-                    deets.save()
+                details.instance.spider = user
+                details.save()
 
                 login(request, user)
 
@@ -91,10 +87,20 @@ def user_logout(request):
 
 @login_required(login_url='/accounts/login/')
 def account_home(request):
-    user = User.objects.filter(first_name=request.user)
-    details = Detail.objects.all()
-    print(details[0].spider)
+    user = request.user
+    users = User.objects.all()
     context = {
-        "user": user
+        "user": user,
+        "users": users
     }
     return render(request, "accounts/home.html", context)
+
+
+# @login_required(login_url='/accounts/login/')
+# def user_list(request):
+#     users = User.objects.all()
+#     context = {
+
+#     }
+
+#     return render(request, "accounts/list.html", context)

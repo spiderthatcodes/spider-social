@@ -3,7 +3,7 @@ from .models import Detail
 
 
 @admin.register(Detail)
-class DetailsAdmin(admin.ModelAdmin):
+class DetailAdmin(admin.ModelAdmin):
     list_display = (
         'species',
     )

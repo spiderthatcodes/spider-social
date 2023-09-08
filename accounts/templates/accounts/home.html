@@ -1,19 +1,40 @@
 {% extends 'base.html' %}
+{% load static %}
 
-{% block title %}
-Spider Social - Account
-{% endblock title %}
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/accounts.css' %}" />
+{% endblock styles %}
+
+
 {% block greeting %}
-{% if user.is_authenticated %}
-<h2>Welcome, {{ user.first_name }}</h2>
-{% endif %}
+<div id="one">
+    <h2>Welcome, {{ user.first_name }}</h2>
+</div>
 {% endblock greeting %}
 
-{% block content %}
-<div>
+{% block account %}
+<div id="two">
 
     <h1>Page under construction</h1>
-    <!-- <img src="{{ user.details.avatar }}" alt=""> -->
+    <img id="avatar" src="{{ user.detail.avatar }}" alt="">
+
+    <p>{{ user.detail.species }}</p>
 
 </div>
-{% endblock content %}
+{% endblock account %}
+
+{% block list %}
+<div id="three">
+
+</div>
+<div id="four">
+
+    {% for user in users %}
+    <img src="{{ user.detail.avatar }}" alt="">
+
+    <p>{{ user.detail.species }}</p>
+
+    {% endfor %}
+
+</div>
+{% endblock list %}

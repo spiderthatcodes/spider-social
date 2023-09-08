@@ -1,14 +1,14 @@
 from django.db import models
 from django.conf import settings
-from django.contrib.auth import get_user_model
-
-UserModel = get_user_model()
 
 
 class Detail(models.Model):
-    avatar = models.URLField(blank=True)
-    species = models.CharField(max_length=250)
-    spider = models.OneToOneField(UserModel,
-        on_delete=models.CASCADE, null=True
+    avatar = models.URLField()
+    species = models.CharField(max_length=200, null=True)
+    spider = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE
     )
-    created_on = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.spider.username

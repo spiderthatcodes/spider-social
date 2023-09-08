@@ -1,22 +1,34 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="description" content="social media app for spiders">
     <meta name="keywords" content="Django">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}{% endblock title %}</title>
+    <link rel="stylesheet" href="{% static 'css/accounts.css' %}" />
+    <title>Spider Social</title>
+    {% block styles %}{% endblock styles %}
 </head>
+
 <body>
-    <header>
-        <nav>
-            <h1>Spider Social</h1>
-            {% block greeting %}{% endblock greeting %}
-        </nav>
-    </header>
     <main>
-        {% block content %}{% endblock content %}
+        <div id="container">
+            <div class="one">
+                <h1>Spider Social</h1>
+                <!-- {% block greeting %}{% endblock greeting %} -->
+            </div>
+            <div class="two">
+                <!-- {% block account %}{% endblock account %} -->
+            </div>
+            <div class="three"></div>
+            <div class="four">
+                <!-- {% block list %}{% endblock list %} -->
+            </div>
+        </div>
     </main>
 
 </body>
+
 </html>
