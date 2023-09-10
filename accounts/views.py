@@ -84,23 +84,16 @@ def user_logout(request):
     logout(request)
     return redirect('login')
 
-
+import random
 @login_required(login_url='/accounts/login/')
 def account_home(request):
-    user = request.user
-    users = User.objects.all()
+    current_user = request.user
+    users = User.objects.exclude(id=current_user.id)
+
+    random_index = random.randint(0,len(users)-1)
     context = {
-        "user": user,
-        "users": users
+        "user": current_user,
+        "users": users,
+        "highlight": users[random_index]
     }
     return render(request, "accounts/home.html", context)
-
-
-# @login_required(login_url='/accounts/login/')
-# def user_list(request):
-#     users = User.objects.all()
-#     context = {
-
-#     }
-
-#     return render(request, "accounts/list.html", context)

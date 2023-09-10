@@ -9,6 +9,16 @@ class Detail(models.Model):
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE
     )
+    description = models.TextField(null=True)
+    gender = models.CharField(
+        max_length=10,
+        choices=(
+            ('male', 'male'),
+            ('female', 'female')
+        ),
+        default='female',
+        null=True
+        )
 
     def __str__(self):
         return self.spider.username

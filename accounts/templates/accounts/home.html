@@ -7,16 +7,18 @@
 
 
 {% block greeting %}
-<div id="one">
+<div>
+    <h1>Spider Social</h1>
     <h2>Welcome, {{ user.first_name }}</h2>
 </div>
+<img id="avatar" src="{{ user.detail.avatar }}" alt="">
 {% endblock greeting %}
 
 {% block account %}
-<div id="two">
+<div>
 
     <h1>Page under construction</h1>
-    <img id="avatar" src="{{ user.detail.avatar }}" alt="">
+
 
     <p>{{ user.detail.species }}</p>
 
@@ -24,17 +26,14 @@
 {% endblock account %}
 
 {% block list %}
-<div id="three">
+<div>
 
-</div>
-<div id="four">
+    <!-- {% for user in users %} -->
+    <img class="list_avatar" src="{{ highlight.detail.avatar }}" alt="">
 
-    {% for user in users %}
-    <img src="{{ user.detail.avatar }}" alt="">
+    <p>{{ highlight.detail.species }}</p>
 
-    <p>{{ user.detail.species }}</p>
-
-    {% endfor %}
+    <!-- {% endfor %} -->
 
 </div>
 {% endblock list %}

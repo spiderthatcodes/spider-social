@@ -50,5 +50,7 @@ class DetailForm(ModelForm):
         model = Detail
         fields = (
             'avatar',
-            'species'
+            'species',
+            'description',
+            'gender'
         )
