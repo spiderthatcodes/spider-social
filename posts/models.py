@@ -12,6 +12,8 @@ class Post(models.Model):
         related_name='webs',
         on_delete=models.CASCADE
     )
+    def __str__(self):
+        return self.title
 
 
 class Comment(models.Model):
@@ -28,4 +30,4 @@ class Comment(models.Model):
     )
 
     def __str__(self):
-        return self.commenter
+        return self.commenter.username

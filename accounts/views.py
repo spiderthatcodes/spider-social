@@ -3,6 +3,8 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .forms import LoginForm, PasswordUpdateForm, SignUpForm, UserEditForm, DetailForm
+from posts.models import Comment, Post
+from posts.forms import PostForm, CommentForm
 
 
 # sign up
@@ -82,18 +84,46 @@ def user_login(request):
 # logout
 def user_logout(request):
     logout(request)
-    return redirect('login')
+    return redirect('user_login')
 
 import random
 @login_required(login_url='/accounts/login/')
 def account_home(request):
     current_user = request.user
     users = User.objects.exclude(id=current_user.id)
+    posts = Post.objects.all().order_by('-date')
+
+    shuffled = users.order_by('?')
+
+    if request.method == 'POST':
+        post_form = PostForm(request.POST)
+        if post_form.is_valid():
+            post = post_form.save(False)
+            post.author = request.user
+            post.save()
+            return redirect('home')
+
+    else:
+        post_form = PostForm()
+
+    if request.method == 'POST':
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid():
+            comment = comment_form.save(False)
+            comment.commenter = request.user
+            comment.save()
+            return redirect('home')
+
+    else:
+        comment_form = CommentForm()
 
     random_index = random.randint(0,len(users)-1)
     context = {
         "user": current_user,
-        "users": users,
-        "highlight": users[random_index]
+        "users": shuffled,
+        "highlight": users[random_index],
+        "posts": posts,
+        "post_form": post_form,
+        "comment_form": comment_form
     }
     return render(request, "accounts/home.html", context)

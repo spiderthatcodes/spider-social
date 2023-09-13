@@ -49,8 +49,5 @@ class DetailForm(ModelForm):
     class Meta:
         model = Detail
         fields = (
-            'avatar',
-            'species',
-            'description',
-            'gender'
+            '__all__'
         )

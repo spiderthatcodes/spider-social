@@ -17,22 +17,11 @@
     {% block styles %}{% endblock styles %}
 </head>
 <script src="{% static 'js/app.js' %}"></script>
-<script src="{% static 'js/comment.js' %}"></script>
 <body>
     <main>
-        <div id="container">
-            <div class="one">
-                <button id="logout"><a href="{% url 'user_logout' %}">Logout</a></button>
-                {% block greeting %}{% endblock greeting %}
-            </div>
-            <div class="two">
-                <button id="post_button" onclick="openPost()">Post</button>
-                {% block posts %}{% endblock posts %}
-            </div>
-            <div class="three">{% block account %}{% endblock account %}</div>
-            <div class="four">
-                {% block list %}{% endblock list %}
-            </div>
+        <div id="alternate">
+            {% block content %}{% endblock content %}
+
         </div>
     </main>
 

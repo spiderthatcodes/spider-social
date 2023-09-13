@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% load static %}
-
 {% block styles %}
 <link rel="stylesheet" href="{% static 'css/accounts.css' %}" />
 {% endblock styles %}
@@ -15,25 +14,74 @@
 {% endblock greeting %}
 
 {% block account %}
-<div>
-
-    <h1>Page under construction</h1>
-
-
-    <p>{{ user.detail.species }}</p>
+<div id="about_me">
+    <h1>About Me</h1>
+    <h2>{{ user.first_name }} {{ user.last_name }}</h2>
+    <h3>Species: {{ user.detail.species }}</h3>
+    <h3>Gender: {{ user.detail.gender }}</h3>
+    <p>{{ user.detail.description }}</p>
 
 </div>
 {% endblock account %}
 
 {% block list %}
-<div>
+<div id="image_block">
 
-    <!-- {% for user in users %} -->
-    <img class="list_avatar" src="{{ highlight.detail.avatar }}" alt="">
-
-    <p>{{ highlight.detail.species }}</p>
-
-    <!-- {% endfor %} -->
+    {% for user in users %}
+    <div>
+        <img class="list_avatar" src="{{ user.detail.avatar }}" alt="">
+        <p>{{ user.first_name }} {{ user.last_name }}</p>
+    </div>
+    {% endfor %}
 
 </div>
 {% endblock list %}
+
+{% block posts %}
+<div class="posts">
+    <div id="post_modal">
+        <h2>Add New:</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ post_form.as_p }}
+            <button class="modal_button">Post</button>
+        </form>
+    </div>
+    <div id="add_comment">
+        <form method="post">
+            {% csrf_token %}
+            {{ comment_form.as_p }}
+            <button class="modal_button">Add Comment</button>
+        </form>
+    </div>
+    <h1>Community:</h1>
+    {% for post in posts %}
+    <div class="post_container">
+        <h3>{{ post.title }} - {{ post.date | date:'M jS, y - h:i' }}</h3>
+        <div class="post_author">
+            <h4>{{ post.author.first_name }} {{ post.author.last_name }}</h4>
+        </div>
+        <p>{{ post.body }}</p>
+        <button onclick="openComment()" class="modal_button">Comment</button>
+        {% if post.comments.all|length > 0 %}
+        <div class="comments">
+
+            <h4>Comments:</h4>
+
+            {% for comment in post.comments.all %}
+            <div class="comment_container">
+                <p>{{ comment.content }}</p>
+                <div class="comment_author">
+                    <img class="comment_img" src="{{ comment.commenter.detail.avatar }}" alt="commenter avatar">
+                    <p>- {{ comment.commenter.first_name }} {{ comment.commenter.last_name }}</p>
+                </div>
+
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+
+    {% endfor %}
+</div>
+{% endblock posts %}

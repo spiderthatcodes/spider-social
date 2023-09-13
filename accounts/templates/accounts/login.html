@@ -1,15 +1,11 @@
-{% extends 'base.html' %}
-
-{% block title %}
-Spider Social - Login
-{% endblock title %}
+{% extends 'alternate.html' %}
 
 {% block content %}
-<div>
-    <form method="post">
+<div class="form_container">
+    <form class="forms" method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button>Sign up</button>
+        <button class="form_button">Login</button>
       </form>
 </div>
 {% endblock content %}
